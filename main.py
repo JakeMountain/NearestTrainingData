@@ -11,8 +11,8 @@ from flask import redirect
 from flask import request
 from flask import send_from_directory
 from flask import url_for
-from flask_minify import decorators
-from flask_minify import minify
+#from flask_minify import decorators
+#from flask_minify import minify
 from google.cloud import firestore
 from google.cloud import storage
 from google.cloud.firestore_v1.field_path import FieldPath
@@ -32,7 +32,6 @@ from sentence_transformers import SentenceTransformer, util
 
 
 app = Flask(__name__)
-minify(app=app, caching_limit=0, passive=True)
 
 # helper class to connect to pinecone before querying
 class PineconeConnector:
@@ -73,7 +72,6 @@ def _render_static(filename, mimetype):
 
 # currently just using environment variables to store secrets. fix!
 
-@cached(cache=TTLCache(maxsize=10, ttl=24*60*60))  # Cache 10 for 1 day.
 def _secret(key):
     # Retrieve a value from the Google Cloud Secret Manager.
     try:
@@ -95,7 +93,6 @@ def _secret(key):
 
 
 @app.route('/api/<prompt>')
-@decorators.minify(html=True, js=True, cssless=True)
 def prompt_page(prompt):
     # given a user prompt as a parameter, encode the prompt using bert, query pinecone for the top 5 results,     
 
