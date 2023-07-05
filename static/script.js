@@ -11,7 +11,7 @@ document.getElementById("submit").addEventListener("click", function() {
 
     console.log("button clicked");
     let input = document.getElementById("input").value;
-    let url = "http://localhost:8080/api/" + input;
+    let url = "http://34.125.126.165/prompt/?prompt=" + input;
     fetch(url)
         .then(response => response.json())
         .then(data => {
